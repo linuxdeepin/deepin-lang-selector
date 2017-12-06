@@ -37,8 +37,7 @@ class SelectLanguageFrame : public QFrame {
  public:
   explicit SelectLanguageFrame(QWidget* parent = nullptr);
 
-  // Read default locale.
-  void readConf();
+  QString getLanguage() const;
 
   // Write locale to settings file.
   void writeConf();

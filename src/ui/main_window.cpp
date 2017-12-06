@@ -56,8 +56,8 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void MainWindow::initConnections() {
-//  connect(select_language_frame_, &SelectLanguageFrame::finished,
-//          this, &MainWindow::goNextPage);
+  connect(select_language_frame_, &SelectLanguageFrame::finished,
+          this, &MainWindow::onLangSelectionFinished);
 }
 
 void MainWindow::initPages() {
@@ -112,6 +112,12 @@ void MainWindow::updateBackground() {
       QPixmap(image_path).scaled(size(), Qt::KeepAspectRatioByExpanding);
   background_label_->setPixmap(pixmap);
   background_label_->setFixedSize(size());
+}
+
+void MainWindow::onLangSelectionFinished() {
+  const QString lang = select_language_frame_->getLanguage();
+  printf("%s\n", lang.toStdString().c_str());
+  this->close();
 }
 
 }  // namespace installer

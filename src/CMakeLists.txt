@@ -101,5 +101,14 @@ set(SRC_FILES
     ui/styles/styles.qrc
     )
 
-add_executable(deepin_lang_selector ${SRC_FILES})
-target_link_libraries(deepin_lang_selector ${Qt_LIBS})
+# Generate .qm files from .ts files.
+file(GLOB INSTALLER_TRANSLATION_TS
+     ${CMAKE_CURRENT_SOURCE_DIR}/i18n/installer-*.ts)
+set_source_files_properties(${INSTALLER_TRANSLATION_TS}
+                            PROPERTIES OUTPUT_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/i18n)
+qt5_add_translation(INSTALLER_TRANSLATION_QM ${INSTALLER_TRANSLATION_TS})
+add_custom_target(installer-qm-update DEPENDS ${INSTALLER_TRANSLATION_QM})
+
+add_executable(deepin-lang-selector ${SRC_FILES})
+target_link_libraries(deepin-lang-selector ${Qt_LIBS})
+add_dependencies(deepin-lang-selector installer-qm-update)

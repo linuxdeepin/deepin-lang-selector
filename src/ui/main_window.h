@@ -81,6 +81,8 @@ class MainWindow : public QWidget {
   QString log_file_;
   bool auto_install_;
 
+ private slots:
+  void onLangSelectionFinished();
 };
 
 }  // namespace installer

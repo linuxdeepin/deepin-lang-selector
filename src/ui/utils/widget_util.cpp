@@ -83,7 +83,6 @@ void ShowFullscreen(QWidget* widget) {
 }
 
 void ShowFullscreen(QWidget* widget, const QRect& geometry) {
-  qDebug() << "ShowFullscreen()" << geometry;
   widget->move(geometry.topLeft());
   widget->setFixedSize(geometry.size());
 }
