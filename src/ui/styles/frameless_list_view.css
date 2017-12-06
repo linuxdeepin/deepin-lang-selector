@@ -1,0 +1,46 @@
+/** Used in FramelessListView class **/
+
+QHeaderView,
+QHeaderView::section,
+QListCornerButton::section {
+  background-color: transparent;
+}
+
+QListView {
+  font-size: 12pt;
+  color: #ffffff;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+
+  /* make the selection span the entire width of the view */
+  show-decoration-selected: 0;
+}
+
+QListView::item {
+  background: transparent;
+  height: 40px;
+  padding: 0px 15px 0px 27px;
+  margin: 0px;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+  selection-background-color: rgba(255, 255, 255, 0.3);
+}
+
+QListView::item:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+QListView::item:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+QListView::item:selected {
+  outline: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.3) url(":/images/list_view_selected.png")
+              no-repeat right center;
+}

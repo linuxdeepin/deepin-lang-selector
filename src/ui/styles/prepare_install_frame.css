@@ -1,0 +1,18 @@
+/** Used in PrepareInstallFrame class */
+
+#subtitle_label {
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+}
+
+#description_edit {
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  selection-color: rgba(255, 255, 255, 0.7);
+  selection-background-color: transparent;
+  font-size: 14px;
+  border: none;
+  outline: none;
+}

@@ -1,0 +1,48 @@
+/** Used in AdvancedPartitionButton class */
+
+#advanced_partition_button {
+  border: none;
+  outline: none;
+}
+
+#advanced_partition_button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#advanced_partition_button:checked {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#name_label {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+#path_label,
+#usage_label {
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+#mount_point_label,
+#fs_label {
+  color: #ffffff;
+  font-size: 14px;
+}
+
+#tip_label {
+  color: #ff8000;
+  font-size: 14px;
+}
+
+#control_button_wrapper {
+  background: transparent;
+}
+
+#control_button,
+#control_button:active {
+  border: none;
+  outline: none;
+  background: transparent;
+}

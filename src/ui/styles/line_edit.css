@@ -1,0 +1,18 @@
+/** Used by LineEdit class **/
+
+QLineEdit {
+  /* NOTE(xushaohua): Do not setup border-line-style: solid, or else an
+  unexpected line will be drawn around border of line edit. */
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding-left: 36px;
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: none;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #dadada;
+}
+
+QLineEdit:focus {
+  border: 1px solid #2ca7f8;
+}

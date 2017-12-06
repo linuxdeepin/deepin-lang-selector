@@ -1,0 +1,8 @@
+/** Used in FlatButton class **/
+
+/* Remove borders */
+QPushButton[flat="true"] {
+  border: none;
+  outline: none;
+  color: #eaeaea;
+}
