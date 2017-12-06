@@ -30,6 +30,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/deepin-lang-selector)
+
 # Defines path to resource directories
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_definitions("-DBUILTIN_HOOKS_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/hooks\"")
@@ -112,3 +114,6 @@ add_custom_target(installer-qm-update DEPENDS ${INSTALLER_TRANSLATION_QM})
 add_executable(deepin-lang-selector ${SRC_FILES})
 target_link_libraries(deepin-lang-selector ${Qt_LIBS})
 add_dependencies(deepin-lang-selector installer-qm-update)
+
+install(TARGETS deepin-lang-selector
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
