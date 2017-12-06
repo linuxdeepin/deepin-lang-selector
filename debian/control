@@ -1,0 +1,23 @@
+Source: deepin-lang-selector
+Section: utils
+Priority: extra
+Maintainer: Deepin Packages Builder <packages@deepin.com>
+Build-Depends:
+    cmake (>=3.1),
+    debhelper (>=9),
+    g++,
+    pkg-config,
+    qt5-qmake,
+    qt5-default,
+    qtbase5-dev,
+    qttools5-dev-tools,
+Standards-Version: 3.9.6
+Homepage: http://www.deepin.org
+
+Package: deepin-lang-selector
+Architecture: any
+Depends:
+    ${shlibs:Depends},
+    ${misc:Depends},
+Description: Language selection page
+ 
