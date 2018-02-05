@@ -1,5 +1,6 @@
 
 add_subdirectory(resources)
+add_subdirectory(scripts)
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -Werror -Wextra")
@@ -31,19 +32,18 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(INSTALLER_SHARE_DIR ${CMAKE_INSTALL_PREFIX}/share/deepin-lang-selector)
+set(INSTALLER_LIBEXEC_DIR ${CMAKE_INSTALL_PREFIX}/lib/deepin-lang-selector)
 
 # Defines path to resource directories
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-  add_definitions("-DBUILTIN_HOOKS_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/hooks\"")
   add_definitions("-DI18N_DIR=\"${CMAKE_CURRENT_BINARY_DIR}/i18n\"")
   add_definitions("-DRESOURCES_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/resources\"")
-  add_definitions("-DTOOLS_DIR=\"${CMAKE_CURRENT_SOURCE_DIR}/tools\"")
+  add_definitions("-DSESSION_WRAPPER=\"${CMAKE_CURRENT_SOURCE_DIR}/scripts/session.wrapper\"")
 else()
   add_definitions("-DN_DEBUG")
-  add_definitions("-DBUILTIN_HOOKS_DIR=\"${INSTALLER_SHARE_DIR}/hooks\"")
   add_definitions("-DI18N_DIR=\"${INSTALLER_SHARE_DIR}/i18n\"")
   add_definitions("-DRESOURCES_DIR=\"${INSTALLER_SHARE_DIR}/resources\"")
-  add_definitions("-DTOOLS_DIR=\"${INSTALLER_SHARE_DIR}/tools\"")
+  add_definitions("-DSESSION_WRAPPER=\"${INSTALLER_LIBEXEC_DIR}/session.wrapper\"")
 endif()
 
 find_package(PkgConfig REQUIRED)
@@ -71,12 +71,6 @@ set(SRC_FILES
     base/command.h
     base/file_util.cpp
     base/file_util.h
-
-    service/settings_manager.cpp
-    service/settings_manager.h
-    service/settings_name.h
-    service/system_language.cpp
-    service/system_language.h
 
     ui/main_window.cpp
     ui/main_window.h

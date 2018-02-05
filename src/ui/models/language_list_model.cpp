@@ -15,11 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "language_list_model.h"
+#include "ui/models/language_list_model.h"
 
 #include <QDebug>
 
+#include "base/file_util.h"
+
 namespace installer {
+
+LanguageList GetLanguageList() {
+  LanguageList list;
+  const QString content(ReadFile(RESOURCES_DIR "/languages.json"));
+  const QJsonArray lang_list =
+      QJsonDocument::fromJson(content.toUtf8()).array();
+  for (const QJsonValue& lang_value : lang_list) {
+    const QJsonObject obj = lang_value.toObject();
+    LanguageItem item;
+    item.name = obj.value("name").toString();
+    item.locale = obj.value("locale").toString();
+    item.local_name = obj.value("local_name").toString();
+    item.timezone = obj.value("timezone").toString();
+    list.append(item);
+  }
+  return list;
+}
 
 LanguageListModel::LanguageListModel(QObject* parent)
     : QAbstractListModel(parent),

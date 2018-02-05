@@ -19,19 +19,32 @@
 #define INSTALLER_UI_MODELS_LANGUAGE_LIST_MODEL_H
 
 #include <QAbstractListModel>
-
-#include "service/system_language.h"
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 namespace installer {
 
+struct LanguageItem {
+  QString name;
+  QString locale;
+  QString local_name;
+  QString timezone;
+};
+
+typedef QList<LanguageItem> LanguageList;
+
+LanguageList GetLanguageList();
+
 // Reimplemented model used in SelectLanguageFrame
 class LanguageListModel : public QAbstractListModel {
-  Q_OBJECT
+ Q_OBJECT
 
  public:
   explicit LanguageListModel(QObject* parent = nullptr);
 
   virtual QVariant data(const QModelIndex& index, int role) const override;
+
   virtual int rowCount(const QModelIndex& parent) const override;
 
   // Get language item at |index|.

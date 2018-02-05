@@ -1,0 +1,47 @@
+#!/bin/sh
+#set -e
+LIVE_LOCALES=$1
+LIVE_TIMEZONE=$2
+
+Init ()
+{
+	# Checking if a locale package is installed
+	if [ ! -e /var/lib/dpkg/info/locales.list ] && \
+	   [ ! -e /var/lib/dpkg/info/locales-all.list ]
+	then
+		echo "locales and locales-all not installed, will exit without config"
+		exit 0
+	fi
+}
+
+Config ()
+{
+	_LOCALE="${LIVE_LOCALES:-en_US.UTF-8}"
+	_TIMEZONE="${LIVE_TIMEZONE:-Etc/UTC}"
+
+	echo "LANG=${_LOCALE}" > /etc/default/locale
+	if which systemctl >/dev/null 2>/dev/null; then
+	    systemctl set-environment "LANG=${_LOCALE}"
+	fi
+
+	if [ -e /etc/locale.gen ]
+	then
+		for _LOCALE in ${_LOCALE} ${_LOCALES}
+		do
+			_CHARSET="$(echo ${_LOCALE} | awk -F. '{ print $2 }')"
+
+			sed -i -e "s|# ${_LOCALE} ${_CHARSET}|${_LOCALE} ${_CHARSET}|" /etc/locale.gen
+		done
+	fi
+
+	locale-gen --keep-existing > /dev/null 2>&1
+	touch /var/lib/live/config/locales
+
+	echo "${_TIMEZONE}" > /etc/timezone
+	rm -f /etc/localtime
+	dpkg-reconfigure -f noninteractive -p critical tzdata
+	touch /var/lib/live/config/tzdata
+}
+
+Init
+Config

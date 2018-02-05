@@ -22,7 +22,7 @@
 #include <QModelIndex>
 class QTranslator;
 
-#include "service/system_language.h"
+#include "ui/models/language_list_model.h"
 
 namespace installer {
 
@@ -38,6 +38,7 @@ class SelectLanguageFrame : public QFrame {
   explicit SelectLanguageFrame(QWidget* parent = nullptr);
 
   QString getLanguage() const;
+  QString getTimezone() const;
 
   // Write locale to settings file.
   void writeConf();

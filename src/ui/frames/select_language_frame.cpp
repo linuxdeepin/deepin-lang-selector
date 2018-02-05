@@ -18,18 +18,14 @@
 #include "ui/frames/select_language_frame.h"
 
 #include <QApplication>
-#include <QDebug>
 #include <QKeyEvent>
 #include <QLabel>
 #include <QTranslator>
 #include <QVBoxLayout>
 
 #include "base/file_util.h"
-#include "service/settings_manager.h"
-#include "service/settings_name.h"
 #include "ui/delegates/language_delegate.h"
 #include "ui/frames/consts.h"
-#include "ui/models/language_list_model.h"
 #include "ui/views/frameless_list_view.h"
 #include "ui/widgets/nav_button.h"
 
@@ -49,6 +45,10 @@ SelectLanguageFrame::SelectLanguageFrame(QWidget* parent)
 
 QString SelectLanguageFrame::getLanguage() const {
   return lang_.locale;
+}
+
+QString SelectLanguageFrame::getTimezone() const {
+  return lang_.timezone;
 }
 
 void SelectLanguageFrame::writeConf() {
@@ -86,7 +86,7 @@ void SelectLanguageFrame::initConnections() {
 
 void SelectLanguageFrame::initUI() {
   QLabel* logo_label = new QLabel();
-  logo_label->setPixmap(QPixmap(GetVendorLogo()));
+  logo_label->setPixmap(QPixmap(":/images/logo.png"));
 
   QLabel* subtitle_label = new QLabel("Select system language");
   subtitle_label->setObjectName("subtitle_label");

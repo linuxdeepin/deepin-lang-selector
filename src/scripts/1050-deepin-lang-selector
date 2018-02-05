@@ -1,0 +1,45 @@
+#!/bin/sh
+#set -e
+
+Cmdline ()
+{
+	# Reading kernel command line
+	for _PARAMETER in ${LIVE_CONFIG_CMDLINE}
+	do
+		case "${_PARAMETER}" in
+			live-media=*|bootfrom=*)
+				SHOW_LANG_SELECTOR="false"
+				;;
+		esac
+	done
+}
+
+Init ()
+{
+	# Checking if package is installed
+	if [ ! -e /var/lib/dpkg/info/lightdm.list ] \
+		|| [ x"${SHOW_LANG_SELECTOR}" == xfalse ]
+	then
+		exit 0
+	fi
+
+	echo -n " lang selector"
+}
+
+Config ()
+{
+	# Checking if package is already configured differently
+	if [ -e /usr/share/lightdm/lightdm.conf.d/99-deepin-lang-selector.conf ]
+	then
+		exit 0
+	fi
+
+cat > /usr/share/lightdm/lightdm.conf.d/99-deepin-lang-selector.conf << EOF
+[Seat:*]
+display-setup-script=/usr/bin/deepin-lang-selector
+EOF
+}
+
+Cmdline
+Init
+Config

@@ -20,4 +20,4 @@ Depends:
     ${shlibs:Depends},
     ${misc:Depends},
 Description: Language selection page
- 
+ Language selection page

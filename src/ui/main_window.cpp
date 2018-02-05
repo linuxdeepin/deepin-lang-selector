@@ -24,8 +24,8 @@
 #include <QResizeEvent>
 #include <QStackedLayout>
 
+#include "base/command.h"
 #include "base/file_util.h"
-#include "service/settings_manager.h"
 #include "ui/frames/select_language_frame.h"
 #include "ui/utils/widget_util.h"
 #include "ui/widgets/pointer_button.h"
@@ -100,13 +100,12 @@ void MainWindow::initUI() {
   this->setWindowFlags(Qt::FramelessWindowHint);
 }
 
-
 void MainWindow::updateBackground() {
   if (!background_label_) {
     qWarning() << "background_label is not initialized!";
     return;
   }
-  const QString image_path = GetWindowBackground();
+  const QString image_path = RESOURCES_DIR "/default_wallpaper.jpg";
   // Other platforms may have performance issue.
   const QPixmap pixmap =
       QPixmap(image_path).scaled(size(), Qt::KeepAspectRatioByExpanding);
@@ -115,8 +114,9 @@ void MainWindow::updateBackground() {
 }
 
 void MainWindow::onLangSelectionFinished() {
-  const QString lang = select_language_frame_->getLanguage();
-  printf("%s\n", lang.toStdString().c_str());
+  const QString lang = select_language_frame_->getLanguage() + ".UTF-8";
+  const QString timezone = select_language_frame_->getTimezone();
+  RunScriptFile({SESSION_WRAPPER, lang, timezone});
   this->close();
 }
 

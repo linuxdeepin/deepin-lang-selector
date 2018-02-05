@@ -26,7 +26,7 @@ class QResizeEvent;
 class QShortcut;
 class QStackedLayout;
 
-class GlobalShortcut;
+#include "models/language_list_model.h"
 
 namespace installer {
 
